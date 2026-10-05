@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Classic Nokia Snake</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="main-wrapper">
+    <div class="phone-frame">
+      <!-- Phone Top Speaker / Brand -->
+      <div class="phone-header">
+        <div class="speaker-grill"></div>
+        <div class="brand-text">NOKIA</div>
+      </div>
+
+      <!-- Monochrome Green LCD Screen Bezel -->
+      <div class="screen-bezel">
+        <div class="lcd-screen" id="lcdScreen">
+          <!-- Top Info Bar -->
+          <div class="status-bar">
+            <div class="status-item">SCORE:<span id="scoreDisplay">0000</span></div>
+            <div class="status-item">MOVES:<span id="movesDisplay">0000</span></div>
+            <div class="status-item">HI:<span id="highScoreDisplay">0000</span></div>
+            <div class="status-item">LVL:<span id="speedDisplay">1</span></div>
+          </div>
+
+          <!-- Main Game Canvas -->
+          <canvas id="gameCanvas" width="360" height="360"></canvas>
+
+          <!-- Overlay for Start / Pause / Game Over -->
+          <div id="gameOverlay" class="screen-overlay">
+            <div class="overlay-content">
+              <h2 id="overlayTitle">SNAKE</h2>
+              <p id="overlaySubtitle" class="blink-text">PRESS ANY KEY OR TAP TO START</p>
+              <div id="overlayStats" class="overlay-stats hidden">
+                <div class="stat-row"><span class="stat-lbl">REASON:</span> <span id="gameOverReason" class="stat-val">HIT WALL</span></div>
+                <div class="stat-row"><span class="stat-lbl">GAME OVER AT:</span> <span class="stat-val">MOVE <span id="gameOverMove">0</span></span></div>
+                <div class="stat-row"><span class="stat-lbl">TOTAL MOVES:</span> <span id="finalMoves" class="stat-val">0</span></div>
+                <div class="stat-row"><span class="stat-lbl">FOOD EATEN:</span> <span id="foodEaten" class="stat-val">0</span></div>
+                <div class="stat-row"><span class="stat-lbl">FINAL SCORE:</span> <span id="finalScore" class="stat-val">0</span></div>
+                <p id="newHighScoreBadge" class="new-record hidden">★ NEW HIGH SCORE! ★</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Controls Section -->
+      <div class="controls-container">
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+          <button id="btnPause" class="btn btn-action" title="Pause / Resume (Space)">PAUSE</button>
+          <button id="btnAutoAI" class="btn btn-action" title="Toggle Clef AI Autoplay (A)">AI: OFF</button>
+          <button id="btnReset" class="btn btn-action" title="Restart Game (R)">RESET</button>
+        </div>
+
+        <!-- D-Pad Directional Controls -->
+        <div class="d-pad">
+          <button id="btnUp" class="d-btn btn-up" aria-label="Up">▲</button>
+          <div class="d-pad-row">
+            <button id="btnLeft" class="d-btn btn-left" aria-label="Left">◀</button>
+            <div class="d-pad-center">●</div>
+            <button id="btnRight" class="d-btn btn-right" aria-label="Right">▶</button>
+          </div>
+          <button id="btnDown" class="d-btn btn-down" aria-label="Down">▼</button>
+        </div>
+      </div>
+
+      <!-- Keyboard Guide -->
+      <div class="keyboard-guide">
+        <span>Controls: <kbd>↑</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd> or <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> | <kbd>Space</kbd> Pause</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="snake.js"></script>
+</body>
+</html>

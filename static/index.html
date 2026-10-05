@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nokia Snake Clef System 1 Benchmark</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Press+Start+2P&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="page-container">
+    <!-- Header -->
+    <header class="benchmark-header">
+      <div class="header-title-row">
+        <h1 class="header-title">Nokia Snake &bull; Clef System 1 Benchmark</h1>
+        <span class="model-tag" id="model-tag">@cf/cloudflare/clef-flash</span>
+      </div>
+    </header>
+
+    <!-- Main Dual-Pane Benchmark Card -->
+    <main class="benchmark-card">
+      <!-- Left: Authentic Nokia 3310 Phone Frame & Green Monochrome LCD -->
+      <div class="phone-panel">
+        <div class="phone-frame">
+          <div class="phone-header">
+            <div class="speaker-grill"></div>
+            <div class="brand-text">NOKIA</div>
+          </div>
+
+          <div class="screen-bezel">
+            <div class="lcd-screen" id="lcdScreen">
+              <!-- Top LCD Status Bar -->
+              <div class="status-bar">
+                <div class="status-item">SCORE:<span id="lcdScore">0000</span></div>
+                <div class="status-item">MOVE:<span id="lcdMove">0001</span></div>
+                <div class="status-item">HI:<span id="lcdHighScore">0000</span></div>
+              </div>
+
+              <!-- Snake Game Canvas (16x16 Grid) -->
+              <canvas id="gameCanvas" width="320" height="320"></canvas>
+            </div>
+          </div>
+
+          <!-- Tactile Controls Pad -->
+          <div class="phone-keypad">
+            <div class="d-pad">
+              <button id="btnUp" class="d-btn btn-up" aria-label="Up">▲</button>
+              <div class="d-pad-row">
+                <button id="btnLeft" class="d-btn btn-left" aria-label="Left">◀</button>
+                <div class="d-pad-center">●</div>
+                <button id="btnRight" class="d-btn btn-right" aria-label="Right">▶</button>
+              </div>
+              <button id="btnDown" class="d-btn btn-down" aria-label="Down">▼</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Live System 1 JSON Inspector & Move Telemetry -->
+      <div class="inspector-panel">
+        <div class="inspector-top-bar">
+          <div class="move-counter" id="move-counter">Move 1 of 400</div>
+          <div class="score-display" id="score-display">Score: 0</div>
+          <div class="source-badge badge-clef" id="source-badge">⚡ Clef-Flash</div>
+        </div>
+
+        <!-- Dynamic Game Status Banner (Game Over / Victory) -->
+        <div class="game-banner hidden" id="game-banner">
+          <span class="banner-icon" id="banner-icon">💀</span>
+          <span class="banner-text" id="banner-text">Game Over! Hit wall at move 42.</span>
+        </div>
+
+        <!-- Live Syntax-Highlighted Clef Response -->
+        <div class="json-container">
+          <div class="json-header">
+            <span class="json-title">System 1 Decision Output (REST JSON)</span>
+            <span class="latency-badge" id="latency-badge">-- ms</span>
+          </div>
+          <pre class="json-code" id="json-code"></pre>
+        </div>
+
+        <!-- Telemetry & Performance Row -->
+        <div class="telemetry-bar">
+          <div class="telemetry-item" title="Stage 1 Fast-Path Cache Hit Rate">
+            <span class="telemetry-label">Cache Hit Rate:</span>
+            <span class="telemetry-value" id="cache-hit-rate">0.0% (0/0)</span>
+          </div>
+          <div class="telemetry-item" title="Total neural latency avoided by Fast-Path Cache">
+            <span class="telemetry-label">Latency Saved:</span>
+            <span class="telemetry-value" id="cache-saved">0 ms</span>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Benchmark Footnote & Controls Bar -->
+    <footer class="benchmark-footer">
+      <p class="caption-text" id="caption-text">
+        Decisions generated in real-time by Cloudflare Workers AI (<span class="code-hl">@cf/cloudflare/clef-flash</span>) with sub-millisecond Fast-Path Caching.
+      </p>
+
+      <!-- Interactive Controls Bar -->
+      <div class="controls-bar">
+        <button class="btn btn-primary" id="btn-step" title="Execute single decision step [S]">
+          <span class="btn-icon">⚡</span> Step
+        </button>
+        <button class="btn btn-secondary" id="btn-autoplay" title="Toggle autonomous play [Space]">
+          <span class="btn-icon">▶</span> Auto-Play
+        </button>
+        <button class="btn btn-outline" id="btn-reset" title="Reset Snake back to start [R]">
+          <span class="btn-icon">↺</span> Reset
+        </button>
+        <button class="btn btn-outline" id="btn-clear-cache" title="Flush Fast-Path Cache [C]">
+          <span class="btn-icon">🗑️</span> Clear Cache
+        </button>
+
+        <div class="backend-select-wrapper">
+          <label for="backend-select">Backend:</label>
+          <select id="backend-select" class="backend-select" title="Switch decision backend">
+            <option value="cloudflare">Cloudflare Clef-Flash</option>
+            <option value="mock">Local Heuristic (Fast)</option>
+          </select>
+        </div>
+
+        <div class="speed-control">
+          <label for="speed-slider">Speed:</label>
+          <input type="range" id="speed-slider" min="100" max="1200" value="400" step="50">
+          <span id="speed-label">0.4s</span>
+        </div>
+      </div>
+
+      <div class="keyboard-legend">
+        <span><kbd>Space</kbd> Auto-Play</span>
+        <span><kbd>S</kbd> Step</span>
+        <span><kbd>R</kbd> Reset</span>
+        <span><kbd>C</kbd> Clear Cache</span>
+        <span><kbd>↑</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd> Manual Move</span>
+      </div>
+    </footer>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

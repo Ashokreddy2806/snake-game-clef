@@ -1,0 +1,524 @@
+/* ==========================================================================
+   Nokia Snake Clef System 1 Benchmark - Dual-Pane Theme
+   ========================================================================== */
+
+:root {
+  --bg-page: #0b0f17;
+  --bg-card: #111827;
+  --border-card: #1f2937;
+  --text-main: #f3f4f6;
+  --text-muted: #9ca3af;
+  --primary: #3b82f6;
+  --primary-hover: #2563eb;
+  --accent-clef: #f97316;
+  --accent-cache: #10b981;
+  --accent-danger: #ef4444;
+
+  /* Nokia LCD Palette */
+  --lcd-bg: #98b068;
+  --lcd-pixel-on: #253315;
+  --lcd-pixel-inner: #3a4e22;
+  --phone-body: #1e293b;
+  --phone-border: #334155;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px 16px;
+}
+
+.page-container {
+  width: 100%;
+  max-width: 1100px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* --------------------------------------------------------------------------
+   Header
+   -------------------------------------------------------------------------- */
+.benchmark-header {
+  display: flex;
+  flex-direction: column;
+}
+
+.header-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.header-title {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: #f9fafb;
+}
+
+.model-tag {
+  background: rgba(249, 115, 22, 0.15);
+  color: #fb923c;
+  border: 1px solid rgba(249, 115, 22, 0.4);
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 13px;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+}
+
+/* --------------------------------------------------------------------------
+   Benchmark Dual-Pane Card
+   -------------------------------------------------------------------------- */
+.benchmark-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 16px;
+  padding: 24px;
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 28px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 900px) {
+  .benchmark-card {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Phone Frame & Nokia LCD
+   -------------------------------------------------------------------------- */
+.phone-panel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.phone-frame {
+  width: 100%;
+  max-width: 360px;
+  background: linear-gradient(145deg, #1e293b, #0f172a);
+  border: 3px solid #334155;
+  border-radius: 32px;
+  padding: 20px 16px;
+  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.phone-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+}
+
+.speaker-grill {
+  width: 44px;
+  height: 5px;
+  background-color: #0b1320;
+  border-radius: 3px;
+}
+
+.brand-text {
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  color: #64748b;
+}
+
+.screen-bezel {
+  width: 100%;
+  background-color: #0b1320;
+  padding: 10px;
+  border-radius: 12px;
+  box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.8);
+}
+
+.lcd-screen {
+  background-color: var(--lcd-bg);
+  border: 2px solid #6b8243;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: inset 0 0 10px rgba(45, 59, 23, 0.4);
+}
+
+.status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 8px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  color: var(--lcd-pixel-on);
+  border-bottom: 2px solid #43542a;
+  font-weight: bold;
+}
+
+#gameCanvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  background-color: var(--lcd-bg);
+  image-rendering: pixelated;
+}
+
+/* Keypad D-Pad */
+.phone-keypad {
+  margin-top: 4px;
+}
+
+.d-pad {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.d-pad-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.d-btn {
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(145deg, #334155, #1e293b);
+  border: 2px solid #475569;
+  border-radius: 10px;
+  color: #94a3b8;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #0f172a;
+  transition: transform 0.05s, box-shadow 0.05s;
+}
+
+.d-btn:active, .d-btn.pressed {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #0f172a;
+  background: #475569;
+  color: #fff;
+}
+
+.d-pad-center {
+  width: 36px;
+  height: 36px;
+  background-color: #1e293b;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #475569;
+  font-size: 8px;
+}
+
+/* --------------------------------------------------------------------------
+   Inspector Panel & JSON Display
+   -------------------------------------------------------------------------- */
+.inspector-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.inspector-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-card);
+}
+
+.move-counter {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 17px;
+  font-weight: 700;
+  color: #e2e8f0;
+}
+
+.score-display {
+  font-size: 16px;
+  font-weight: 600;
+  color: #fbbf24;
+}
+
+.source-badge {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.badge-clef {
+  background: rgba(249, 115, 22, 0.2);
+  color: #fb923c;
+  border: 1px solid rgba(249, 115, 22, 0.4);
+}
+
+.badge-cache {
+  background: rgba(16, 185, 129, 0.2);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+.badge-mock {
+  background: rgba(59, 130, 246, 0.2);
+  color: #60a5fa;
+  border: 1px solid rgba(59, 130, 246, 0.4);
+}
+
+.badge-fallback {
+  background: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+}
+
+/* Game Status Banner */
+.game-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.game-banner.hidden {
+  display: none;
+}
+
+.banner-defeat {
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #fca5a5;
+}
+
+.banner-victory {
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  color: #6ee7b7;
+}
+
+/* JSON Code Container */
+.json-container {
+  background: #090d14;
+  border: 1px solid #1f2937;
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 240px;
+}
+
+.json-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #1f2937;
+  padding-bottom: 8px;
+}
+
+.json-title {
+  font-size: 12px;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.latency-badge {
+  background: #1e293b;
+  color: #38bdf8;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+}
+
+.json-code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #e2e8f0;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+/* JSON Syntax Tokens */
+.json-key { color: #38bdf8; }
+.json-string { color: #4ade80; }
+.json-number { color: #facc15; }
+.json-boolean { color: #f472b6; }
+.json-null { color: #94a3b8; }
+.json-punc { color: #64748b; }
+
+/* Telemetry Bar */
+.telemetry-bar {
+  display: flex;
+  gap: 20px;
+  background: #090d14;
+  border: 1px solid #1f2937;
+  border-radius: 10px;
+  padding: 12px 16px;
+  flex-wrap: wrap;
+}
+
+.telemetry-item {
+  display: flex;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.telemetry-label {
+  color: #94a3b8;
+}
+
+.telemetry-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+/* --------------------------------------------------------------------------
+   Controls Footer
+   -------------------------------------------------------------------------- */
+.benchmark-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.caption-text {
+  font-size: 13px;
+  color: #94a3b8;
+  text-align: center;
+}
+
+.code-hl {
+  font-family: 'JetBrains Mono', monospace;
+  color: #fb923c;
+}
+
+.controls-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  border: 1px solid transparent;
+}
+
+.btn-primary {
+  background: #2563eb;
+  color: #fff;
+}
+.btn-primary:hover { background: #1d4ed8; }
+
+.btn-secondary {
+  background: #1e293b;
+  color: #e2e8f0;
+  border-color: #334155;
+}
+.btn-secondary:hover { background: #334155; }
+
+.btn-outline {
+  background: transparent;
+  color: #94a3b8;
+  border-color: #334155;
+}
+.btn-outline:hover {
+  background: #1e293b;
+  color: #f8fafc;
+}
+
+.backend-select-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #94a3b8;
+}
+
+.backend-select {
+  background: #1e293b;
+  color: #f8fafc;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  padding: 7px 10px;
+  font-size: 13px;
+  outline: none;
+}
+
+.speed-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #94a3b8;
+}
+
+.speed-control input[type="range"] {
+  accent-color: #3b82f6;
+  width: 80px;
+}
+
+.keyboard-legend {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  font-size: 12px;
+  color: #64748b;
+  flex-wrap: wrap;
+}
+
+.keyboard-legend kbd {
+  background: #1e293b;
+  color: #cbd5e1;
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid #334155;
+}
